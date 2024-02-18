@@ -1,0 +1,23 @@
+<launch>
+    <!-- 导入模型 -->
+    <arg name="model" default="$(find ats_description)/urdf/ats.xacro"/>
+    <arg name="gui" default="true"/>
+    <!-- 加载RViz配置文件 -->
+    <arg name="rvizconfig" default="$(find ats_description)/launch/urdf.rviz"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+    <param name="use_gui" value="$(arg gui)"/>
+    <!-- 关节状态发布节点 -->
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" if="$(eval gui == false)"/>
+    <!-- 机器人状态发布节点 -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <!-- 启动RViz -->
+    <node name="rviz" pkg="rviz" args="-d $(arg rvizconfig)" type="rviz" required="true"/>
+
+    <!-- 集成Arbotix运动控制节点，并且加载参数 -->
+    <node pkg="arbotix_python" type="arbotix_driver" name="driver" output="screen">
+        <!-- 加载Arbotix配置文件 -->
+        <rosparam command="load" file="$(find ats_description)/config/control.yaml"/>
+        <!-- 指定当前环境为模拟环境 -->
+        <param name="sim" value="true"/>
+    </node>
+</launch>

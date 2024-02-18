@@ -1,0 +1,24 @@
+<launch>
+    <!-- display + controller -->
+    <arg name="model" default="$(find ats_description)/urdf/ats.xacro"/>
+    <arg name="gui" default="true"/>
+    <arg name="rvizconfig" default="$(find ats_description)/launch/urdf.rviz"/>
+    <param name="robot_description" command="$(find xacro)/xacro $(arg model)"/>
+    <param name="use_gui" value="$(arg gui)"/>
+    <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" if="$(eval gui == false)"/>
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+    <node name="rviz" pkg="rviz" args="-d $(arg rvizconfig)" type="rviz" required="true"/>
+    <node name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" if="$(eval gui)"/>
+
+    <!-- gazebo -->
+    <param name="robot_description" command="$(find xacro)/xacro $(find ats_description)/urdf/ats.xacro"/>
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-param robot_description -urdf -model ats"/>
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="world_name" value="$(find ats_description)/worlds/ats.world" />
+        <arg name="paused" value="true"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+        <arg name="headless" value="false"/>
+        <arg name="debug" value="false"/>
+    </include>
+</launch>

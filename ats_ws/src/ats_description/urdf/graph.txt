@@ -1,0 +1,13 @@
+digraph G {  "base_link" -> "rplidar_s2_11" [ label = "Rigid_1" ] 
+  "base_link" -> "rplidar_s2_21" [ label = "Rigid_2" ] 
+  "caster_adapter_11" -> "caster_11" [ label = "Revolute_7" ] 
+  "caster_adapter_21" -> "caster_21" [ label = "Revolute_8" ] 
+  "adapter_11" -> "wheel_11" [ label = "Revolute_1" ] 
+  "base_link" -> "adapter_11" [ label = "Revolute_2" ] 
+  "base_link" -> "adapter_21" [ label = "Revolute_5" ] 
+  "adapter_11" -> "wheel_21" [ label = "Revolute_3" ] 
+  "adapter_21" -> "wheel_31" [ label = "Revolute_4" ] 
+  "adapter_21" -> "wheel_41" [ label = "Revolute_6" ] 
+  "base_link" -> "caster_adapter_21" [ label = "Revolute_10" ] 
+  "base_link" -> "caster_adapter_11" [ label = "Revolute_9" ] 
+}

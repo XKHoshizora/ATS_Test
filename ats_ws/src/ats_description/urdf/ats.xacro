@@ -1,0 +1,423 @@
+<?xml version="1.0" ?>
+<robot name="ats"
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:include filename="$(find ats_description)/urdf/materials.xacro" />
+    <xacro:include filename="$(find ats_description)/urdf/ats.trans" />
+    <xacro:include filename="$(find ats_description)/urdf/ats.gazebo" />
+
+    <!-- Macro Properties -->
+
+    <!-- Varliables -->
+    <xacro:property name="PI" value="3.1415926"/>
+
+    <!-- Color -->
+    <material name="black">
+        <color rgba="0.0 0.0 0.0 1.0"/>
+    </material>
+
+    <!-- Chassis Properties -->
+    <xacro:property name="base_link_length" value="0.1"/>
+    <xacro:property name="base_link_width" value="0.08"/>
+    <xacro:property name="ground_distance" value=""/>
+
+    <!-- ########## 连杆 ########## -->
+
+    <!-- 虚拟连杆：消除惯性 -->
+    <link name="dummy">
+    </link>
+
+    <!-- 根连杆 -->
+    <link name="base_link">
+        <inertial>
+            <origin xyz="-3.5381115631119146e-07 -6.069851163093431e-17 0.15800171643032818" rpy="0 0 0"/>
+            <mass value="75.278639606354"/>
+            <inertia ixx="3.911899" iyy="2.314591" izz="6.221472" ixy="-3.1e-05" iyz="0.0" ixz="-0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- RPLiDAR S2 1 -->
+    <link name="rplidar_s2_1_1">
+        <inertial>
+            <origin xyz="-5.069135639579336e-07 -1.9284390547769092e-05 0.017499881114527827" rpy="0 0 0"/>
+            <mass value="1.4755797019735095"/>
+            <inertia ixx="0.000778" iyy="0.000779" izz="0.001203" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.26526 -0.3565 -0.168" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/rplidar_s2_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="0.26526 -0.3565 -0.168" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/rplidar_s2_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- RPLiDAR S2 2 -->
+    <link name="rplidar_s2_2_1">
+        <inertial>
+            <origin xyz="5.069135636248667e-07 1.9284390547769092e-05 0.017499881114527854" rpy="0 0 0"/>
+            <mass value="1.4755797019735115"/>
+            <inertia ixx="0.000778" iyy="0.000779" izz="0.001203" ixy="0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="-0.26526 0.3565 -0.168" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/rplidar_s2_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.26526 0.3565 -0.168" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/rplidar_s2_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 脚轮 1 -->
+    <link name="caster_1_1">
+        <inertial>
+            <origin xyz="-1.6391285551087265e-10 0.0 6.938893903907228e-18" rpy="0 0 0"/>
+            <mass value="0.6178921156215165"/>
+            <inertia ixx="0.000179" iyy="0.000479" izz="0.000479" ixy="-0.0" iyz="0.0" ixz="-0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.17926 -0.26 -0.025" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/caster_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="0.17926 -0.26 -0.025" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/caster_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 脚轮 2 -->
+    <link name="caster_2_1">
+        <inertial>
+            <origin xyz="-1.6391291102202388e-10 0.0 3.469446951953614e-18" rpy="0 0 0"/>
+            <mass value="0.6178921156215165"/>
+            <inertia ixx="0.000179" iyy="0.000479" izz="0.000479" ixy="0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="-0.18526 0.26 -0.025" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/caster_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.18526 0.26 -0.025" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/caster_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 轮毂电机 1 -->
+    <link name="wheel_1_1">
+        <inertial>
+            <origin xyz="5.774982647643867e-05 0.0 1.3877787807814457e-17" rpy="0 0 0"/>
+            <mass value="4.998293010395846"/>
+            <inertia ixx="0.01005" iyy="0.006066" izz="0.006066" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="-0.27826 -0.26 -0.064" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/wheel_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.27826 -0.26 -0.064" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/wheel_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 轮毂电机转接 1 -->
+    <link name="adapter_1_1">
+        <inertial>
+            <origin xyz="-1.1102230246251565e-16 0.0 -0.08577726603955564" rpy="0 0 0"/>
+            <mass value="1.0536485500536665"/>
+            <inertia ixx="0.000533" iyy="0.001" izz="0.000804" ixy="0.0" iyz="-0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="-0.18526 -0.26 -0.153" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/adapter_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.18526 -0.26 -0.153" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/adapter_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 轮毂电机转接 2 -->
+    <link name="adapter_2_1">
+        <inertial>
+            <origin xyz="-8.326672684688674e-17 0.0 -0.08577726603955564" rpy="0 0 0"/>
+            <mass value="1.0536485500536665"/>
+            <inertia ixx="0.000533" iyy="0.001" izz="0.000804" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.18526 0.26 -0.153" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/adapter_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="0.18526 0.26 -0.153" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/adapter_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 轮毂电机 2 -->
+    <link name="wheel_2_1">
+        <inertial>
+            <origin xyz="-5.774982647667459e-05 0.0 1.3877787807814457e-17" rpy="0 0 0"/>
+            <mass value="4.998293010395846"/>
+            <inertia ixx="0.01005" iyy="0.006066" izz="0.006066" ixy="0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="-0.09226 -0.26 -0.064" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/wheel_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.09226 -0.26 -0.064" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/wheel_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 轮毂电机 3 -->
+    <link name="wheel_3_1">
+        <inertial>
+            <origin xyz="-5.7749826476660715e-05 0.0 1.3877787807814457e-17" rpy="0 0 0"/>
+            <mass value="4.998293010395846"/>
+            <inertia ixx="0.01005" iyy="0.006066" izz="0.006066" ixy="0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.27826 0.26 -0.064" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/wheel_3_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="0.27826 0.26 -0.064" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/wheel_3_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 轮毂电机 4 -->
+    <link name="wheel_4_1">
+        <inertial>
+            <origin xyz="5.7749826476466426e-05 0.0 1.3877787807814457e-17" rpy="0 0 0"/>
+            <mass value="4.998293010395846"/>
+            <inertia ixx="0.01005" iyy="0.006066" izz="0.006066" ixy="-0.0" iyz="0.0" ixz="0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.09226 0.26 -0.064" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/wheel_4_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="0.09226 0.26 -0.064" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/wheel_4_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 脚轮转接 2 -->
+    <link name="caster_adapter_2_1">
+        <inertial>
+            <origin xyz="-1.6425794058250176e-10 -3.6137759451548845e-14 -0.08518001846489567" rpy="0 0 0"/>
+            <mass value="0.16884779283286586"/>
+            <inertia ixx="0.000318" iyy="0.000318" izz="8e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="-0.18526 0.26 -0.153" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/caster_adapter_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="-0.18526 0.26 -0.153" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/caster_adapter_2_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- 脚轮转接 1 -->
+    <link name="caster_adapter_1_1">
+        <inertial>
+            <origin xyz="-1.6425791282692614e-10 -3.6193270602780103e-14 -0.08518001846489567" rpy="0 0 0"/>
+            <mass value="0.16884779283286586"/>
+            <inertia ixx="0.000318" iyy="0.000318" izz="8e-06" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+        </inertial>
+        <visual>
+            <origin xyz="0.17926 -0.26 -0.153" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/caster_adapter_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+            <material name="_"/>
+        </visual>
+        <collision>
+            <origin xyz="0.17926 -0.26 -0.153" rpy="0 0 0"/>
+            <geometry>
+                <mesh filename="package://ats_description/meshes/caster_adapter_1_1.stl" scale="0.001 0.001 0.001"/>
+            </geometry>
+        </collision>
+    </link>
+
+    <!-- ########## 关节 ########## -->
+
+    <!-- rplidar_s2_1 -> base_link 固定 -->
+    <joint name="Rigid_1" type="fixed">
+        <origin xyz="-0.26526 0.3565 0.168" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="rplidar_s2_1_1"/>
+    </joint>
+
+    <!-- rplidar_s2_2 -> base_link 固定 -->
+    <joint name="Rigid_2" type="fixed">
+        <origin xyz="0.26526 -0.3565 0.168" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="rplidar_s2_2_1"/>
+    </joint>
+
+    <!-- caster_1 -> caster_adapter_1 旋转 -->
+    <joint name="Revolute_7" type="continuous">
+        <origin xyz="0.0 0.0 -0.128" rpy="0 0 0"/>
+        <parent link="caster_adapter_1_1"/>
+        <child link="caster_1_1"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+    </joint>
+
+    <!-- caster_2 -> caster_adapter_2 旋转 -->
+    <joint name="Revolute_8" type="continuous">
+        <origin xyz="0.0 0.0 -0.128" rpy="0 0 0"/>
+        <parent link="caster_adapter_2_1"/>
+        <child link="caster_2_1"/>
+        <axis xyz="1.0 0.0 0.0"/>
+    </joint>
+
+    <!-- wheel_1 -> adapter_1 旋转 -->
+    <joint name="Revolute_1" type="continuous">
+        <origin xyz="0.093 0.0 -0.089" rpy="0 0 0"/>
+        <parent link="adapter_1_1"/>
+        <child link="wheel_1_1"/>
+        <axis xyz="1.0 0.0 0.0"/>
+    </joint>
+
+    <!-- adapter_1 -> base_link 旋转 -->
+    <joint name="Revolute_2" type="continuous">
+        <origin xyz="0.18526 0.26 0.153" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="adapter_1_1"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+    </joint>
+
+    <!-- adapter_2 -> base_link 旋转 -->
+    <joint name="Revolute_5" type="continuous">
+        <origin xyz="-0.18526 -0.26 0.153" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="adapter_2_1"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+    </joint>
+
+    <!-- wheel_2 -> adapter_1 旋转 -->
+    <joint name="Revolute_3" type="continuous">
+        <origin xyz="-0.093 0.0 -0.089" rpy="0 0 0"/>
+        <parent link="adapter_1_1"/>
+        <child link="wheel_2_1"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+    </joint>
+
+    <!-- wheel_3 -> adapter_2 旋转 -->
+    <joint name="Revolute_4" type="continuous">
+        <origin xyz="-0.093 0.0 -0.089" rpy="0 0 0"/>
+        <parent link="adapter_2_1"/>
+        <child link="wheel_3_1"/>
+        <axis xyz="-1.0 0.0 0.0"/>
+    </joint>
+
+    <!-- wheel_4 -> adapter_2 旋转 -->
+    <joint name="Revolute_6" type="continuous">
+        <origin xyz="0.093 0.0 -0.089" rpy="0 0 0"/>
+        <parent link="adapter_2_1"/>
+        <child link="wheel_4_1"/>
+        <axis xyz="1.0 0.0 0.0"/>
+    </joint>
+
+    <!-- caster_adapter_2 -> base_link 旋转 -->
+    <joint name="Revolute_10" type="continuous">
+        <origin xyz="0.18526 -0.26 0.153" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="caster_adapter_2_1"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+    </joint>
+
+    <!-- caster_adapter_1 -> base_link 旋转 -->
+    <joint name="Revolute_9" type="continuous">
+        <origin xyz="-0.17926 0.26 0.153" rpy="0 0 0"/>
+        <parent link="base_link"/>
+        <child link="caster_adapter_1_1"/>
+        <axis xyz="0.0 0.0 -1.0"/>
+    </joint>
+    
+    <!-- 虚拟关节：消除惯性 -->
+    <joint name="dummy_joint" type="fixed">
+        <parent link="dummy"/>
+        <child link="base_link"/>
+    </joint>
+
+    <!-- Gazebo 中的颜色设置 -->
+    <!-- <gazebo reference="base_link">
+        <material>Gazebo/Red</material>
+    </gazebo> -->
+
+</robot>

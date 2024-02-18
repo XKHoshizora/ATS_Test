@@ -1,0 +1,10 @@
+Navigetion!
+
+roscore
+
+cd demo_ws
+source ./devel/setup.bash
+
+roslaunch demo_03 my_robot.launch
+roslaunch demo_03 my_navi.launch
+

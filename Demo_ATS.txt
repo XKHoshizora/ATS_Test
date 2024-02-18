@@ -1,0 +1,21 @@
+roscore
+
+cd ats_ws
+source ./devel/setup.bash
+roslaunch rplidar_ros view_rplidar_s2.launch
+
+cd demo_ws
+source ./devel/setup.bash
+
+roslaunch demo_03 my_robot.launch
+roslaunch demo_03 slam_test.launch
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py
+roslaunch demo_03 save_map.launch
+
+gsettings set org.gnome.settings-daemon.plugins.media-keys max-screencast-length 7200
+simplescreenrecorder
+
+cd cartographer_ws
+source install_isolated/setup.bash
+roslaunch cartographer_ros demo_backpack_2d.launch bag_filename:=/home/jetson/demo_ws/src/demo_cartographer/cartographer_paper_deutsches_museum.bag
+

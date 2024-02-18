@@ -1,0 +1,199 @@
+<?xml version="1.0" ?>
+<robot name="ats" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find ats_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find ats_description)/urdf/ats.trans" />
+<xacro:include filename="$(find ats_description)/urdf/ats.gazebo" />
+
+<link name="dummy">
+</link>
+
+<link name="base_link">
+  <inertial>
+    <origin xyz="-3.538092681791124e-07 6.069818771009429e-17 0.15800176904634042" rpy="0 0 0"/>
+    <mass value="75.27904133696734"/>
+    <inertia ixx="3.91195" iyy="2.314619" izz="6.221552" ixy="7e-06" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="in_wheel_1_1">
+  <inertial>
+    <origin xyz="-1.970645868709653e-15 4.551914400963142e-15 -0.08817479999689995" rpy="0 0 0"/>
+    <mass value="10.665145079824297"/>
+    <inertia ixx="0.020507" iyy="0.099578" izz="0.099279" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.18526 -0.26 -0.153" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/in_wheel_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.18526 -0.26 -0.153" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/in_wheel_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="caster_1_1">
+  <inertial>
+    <origin xyz="-1.4481257859522145e-10 -7.549516567451064e-15 -0.11856968433609011" rpy="0 0 0"/>
+    <mass value="0.8149371127533965"/>
+    <inertia ixx="0.000743" iyy="0.001043" izz="0.00049" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.17926 -0.26 -0.153" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/caster_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.17926 -0.26 -0.153" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/caster_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="in_wheel_2_1">
+  <inertial>
+    <origin xyz="-1.1379786002407855e-15 2.6645352591003757e-15 -0.08817479999689992" rpy="0 0 0"/>
+    <mass value="10.665145079824297"/>
+    <inertia ixx="0.020507" iyy="0.099578" izz="0.099279" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.18526 0.26 -0.153" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/in_wheel_2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.18526 0.26 -0.153" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/in_wheel_2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="caster_2_1">
+  <inertial>
+    <origin xyz="-1.448128561509776e-10 -7.494005416219807e-15 -0.11856968433609011" rpy="0 0 0"/>
+    <mass value="0.8149371127533965"/>
+    <inertia ixx="0.000743" iyy="0.001043" izz="0.00049" ixy="-0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="-0.18526 0.26 -0.153" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/caster_2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="-0.18526 0.26 -0.153" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/caster_2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rplidar_s2_1_1">
+  <inertial>
+    <origin xyz="-5.069135638987133e-07 -1.9284390547880115e-05 0.017499881114527827" rpy="0 0 0"/>
+    <mass value="1.4755797019735104"/>
+    <inertia ixx="0.000778" iyy="0.000779" izz="0.001203" ixy="0.0" iyz="-0.0" ixz="-0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 -0.395 -0.168" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/rplidar_s2_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0 -0.395 -0.168" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/rplidar_s2_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<link name="rplidar_s2_2_1">
+  <inertial>
+    <origin xyz="5.069135636855506e-07 1.9284390547824604e-05 0.0174998811145278" rpy="0 0 0"/>
+    <mass value="1.4755797019735104"/>
+    <inertia ixx="0.000778" iyy="0.000779" izz="0.001203" ixy="0.0" iyz="0.0" ixz="0.0"/>
+  </inertial>
+  <visual>
+    <origin xyz="0.0 0.395 -0.168" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/rplidar_s2_2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="_"/>
+  </visual>
+  <collision>
+    <origin xyz="0.0 0.395 -0.168" rpy="0 0 0"/>
+    <geometry>
+      <mesh filename="package://ats_description/meshes/rplidar_s2_2_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="rigidity1" type="fixed">
+  <origin xyz="0.18526 0.26 0.153" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="in_wheel_1_1"/>
+</joint>
+
+<joint name="rigidity2" type="fixed">
+  <origin xyz="-0.17926 0.26 0.153" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="caster_1_1"/>
+</joint>
+
+<joint name="rigidity3" type="fixed">
+  <origin xyz="-0.18526 -0.26 0.153" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="in_wheel_2_1"/>
+</joint>
+
+<joint name="rigidity4" type="fixed">
+  <origin xyz="0.18526 -0.26 0.153" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="caster_2_1"/>
+</joint>
+
+<joint name="rigidity9" type="fixed">
+  <origin xyz="0.0 0.395 0.168" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="rplidar_s2_1_1"/>
+</joint>
+
+<joint name="rigidity10" type="fixed">
+  <origin xyz="0.0 -0.395 0.168" rpy="0 0 0"/>
+  <parent link="base_link"/>
+  <child link="rplidar_s2_2_1"/>
+</joint>
+
+<joint name="dummy_joint" type="fixed">
+  <parent link="dummy"/>
+  <child link="base_link"/>
+</joint>
+
+</robot>
